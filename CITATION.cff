@@ -1,0 +1,35 @@
+cff-version: 1.2.0
+title: >-
+  AgentEsc: A Taxonomy of Privilege-Escalation Threats in
+  Tool-Calling and MCP-Based Agent Systems
+message: >-
+  If you use this taxonomy or benchmark, please cite it using
+  the metadata below.
+type: software
+authors:
+  - given-names: Aditya
+    family-names: Mehra
+    orcid: 'https://orcid.org/0009-0004-8307-9398'
+repository-code: 'https://github.com/AddyM/agentesc'
+url: 'https://github.com/AddyM/agentesc'
+abstract: >-
+  AgentEsc is an open taxonomy and benchmark for privilege-escalation
+  threats in agentic AI systems that use tool-calling, the Model
+  Context Protocol (MCP), or multi-agent orchestration. It provides a
+  five-class taxonomy with fifteen testable sub-techniques, a
+  declarative scenario schema, and metrics (Escalation Success Rate,
+  Detection Rate, Containment Rate) evaluated across a defense ladder,
+  enabling reproducible measurement of authorization-boundary
+  vulnerabilities in agent frameworks.
+keywords:
+  - agentic AI
+  - AI security
+  - privilege escalation
+  - tool-calling
+  - Model Context Protocol
+  - multi-agent systems
+  - trustworthy machine learning
+  - LLM security
+license: Apache-2.0
+version: 0.1.0
+date-released: '2026-07-12'
