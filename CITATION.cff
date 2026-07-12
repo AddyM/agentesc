@@ -30,6 +30,10 @@ keywords:
   - multi-agent systems
   - trustworthy machine learning
   - LLM security
+identifiers:
+  - type: doi
+    value: 10.5281/zenodo.21327893
+    description: Concept DOI (always resolves to latest version)
 license: Apache-2.0
 version: 0.1.0
 date-released: '2026-07-12'

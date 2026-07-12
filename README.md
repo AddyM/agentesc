@@ -1,7 +1,7 @@
 # AgentEsc: A Taxonomy of Privilege-Escalation Threats in Tool-Calling and MCP-Based Agent Systems
 
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
-<!-- Add after Zenodo release: [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.XXXXXXX.svg)](https://doi.org/10.5281/zenodo.XXXXXXX) -->
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21327893.svg)](https://doi.org/10.5281/zenodo.21327893)
 
 **AgentEsc** is an open, structured taxonomy — and a growing benchmark — for
 **privilege-escalation (PE) threats** in agentic AI systems that call tools, use the
