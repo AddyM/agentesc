@@ -70,10 +70,42 @@ breakdown, metrics, and defense ladder.
 Contributions are welcome — new sub-techniques, scenarios, framework adapters, or
 corrections. Please open an issue or PR. See [`CONTRIBUTING.md`](CONTRIBUTING.md).
 
+## Using AgentEsc today
+
+The harness is still in development, but the taxonomy is usable now:
+
+- **Threat-model review.** Walk each of your agent's tools and integrations through
+  PE-1 … PE-5 and record which sub-techniques apply.
+- **Red-team planning.** Write test cases in the scenario schema
+  ([`data/scenarios/SCHEMA_AND_EXAMPLES.md`](data/scenarios/SCHEMA_AND_EXAMPLES.md)) so
+  results stay comparable across configurations.
+- **Defense comparison.** Report Escalation Success Rate, Detection Rate and
+  Containment Rate at each defense level (D0–D3) instead of a single pass/fail.
+
+## Used by and cited in
+
+Using AgentEsc in a paper, tool, threat model or course? Open an issue or PR to be
+listed here.
+
 ## Citing
 
-If you use AgentEsc, please cite it — see [`CITATION.cff`](CITATION.cff). A DOI will be
-minted via Zenodo on first tagged release.
+If you use AgentEsc, please cite it. The concept DOI
+[10.5281/zenodo.21327893](https://doi.org/10.5281/zenodo.21327893) always resolves to
+the latest version; [`CITATION.cff`](CITATION.cff) has the full metadata, and GitHub's
+"Cite this repository" button generates APA and BibTeX from it.
+
+```bibtex
+@software{mehra_agentesc_2026,
+  author    = {Mehra, Aditya},
+  title     = {{AgentEsc: A Taxonomy of Privilege-Escalation Threats in
+               Tool-Calling and MCP-Based Agent Systems}},
+  year      = {2026},
+  version   = {0.1.0},
+  publisher = {Zenodo},
+  doi       = {10.5281/zenodo.21327893},
+  url       = {https://github.com/AddyM/agentesc}
+}
+```
 
 ## License
 
