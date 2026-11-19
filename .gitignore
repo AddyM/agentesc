@@ -11,3 +11,6 @@ results/*.csv
 .idea/
 .vscode/
 *.swp
+results/
+.pytest_cache/
+mcp-trace.jsonl
