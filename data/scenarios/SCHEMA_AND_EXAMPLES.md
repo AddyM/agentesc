@@ -1,5 +1,10 @@
 # Scenario Schema + Worked Examples
 
+> **Superseded.** This is the v0.1 draft schema. The executable format is defined in
+> [`docs/HARNESS_SPEC.md`](../../docs/HARNESS_SPEC.md) §3, and the scenarios live in
+> [`scenarios/`](../../scenarios/). The worked examples below correspond to
+> `PE-2.1-001` and `PE-3.1-001`.
+
 Every benchmark scenario is a declarative YAML/JSON record. The harness reads it,
 configures the target framework, runs the attacker move, and evaluates the success
 predicate. Keeping scenarios declarative is what makes the benchmark reproducible and

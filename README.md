@@ -14,9 +14,9 @@ that boundary**. Existing catalogs (CoSAI, OWASP) enumerate threats; AgentEsc ad
 *testable* organizing framework that separates whether a system was compromised,
 whether it noticed, and whether it contained the attempt.
 
-> **Status:** v0.1 — taxonomy + scenario schema. Benchmark harness and cross-framework
-> results are in active development. This is an early, citable release; the structure
-> is stable and we welcome contributions.
+> **Status:** v0.2 — runnable harness with 15 scenarios, the D0–D3 defense ladder,
+> Anthropic and OpenAI-compatible model adapters, and an MCP server. Cross-framework
+> results (LangGraph, AutoGen) are next. We welcome contributions.
 
 ---
 
@@ -35,12 +35,13 @@ Three gaps in current agentic-AI security resources:
    individually-benign tool calls. A per-call policy check misses these. AgentEsc
    models them explicitly.
 
-## What's in this release (v0.1)
+## What's in this release (v0.2)
 
 - **[`docs/THREAT_TAXONOMY.md`](docs/THREAT_TAXONOMY.md)** — the 5-class taxonomy
   (PE-1 … PE-5) with 15 testable sub-techniques.
-- **[`data/scenarios/SCHEMA_AND_EXAMPLES.md`](data/scenarios/SCHEMA_AND_EXAMPLES.md)** —
-  a declarative scenario schema and two fully-worked example attack scenarios.
+- **[`scenarios/`](scenarios/)** — 15 executable scenarios, three per class.
+- **[`docs/HARNESS_SPEC.md`](docs/HARNESS_SPEC.md)** — the harness specification:
+  scenario format, defense ladder, oracle and metric definitions.
 - **Metrics definition** — Escalation Success Rate (ESR), Detection Rate (DR),
   Containment Rate (CR), and a defense ladder (D0–D3) for structured comparison.
 
@@ -60,8 +61,8 @@ breakdown, metrics, and defense ladder.
 ## Roadmap
 
 - [x] v0.1 — Taxonomy, scenario schema, metrics, defense ladder
-- [ ] v0.2 — Executable scenario dataset (~38 scenarios across all 5 classes)
-- [ ] v0.3 — Evaluation harness + first framework adapter (MCP)
+- [x] v0.2 — Executable harness, 15 scenarios, D0–D3, model adapters, MCP server
+- [ ] v0.3 — Full scenario set (~38) and first published model results
 - [ ] v0.4 — Cross-framework results (MCP, LangGraph, AutoGen) under D0–D3
 - [ ] Companion paper (systematization of knowledge)
 
@@ -70,17 +71,58 @@ breakdown, metrics, and defense ladder.
 Contributions are welcome — new sub-techniques, scenarios, framework adapters, or
 corrections. Please open an issue or PR. See [`CONTRIBUTING.md`](CONTRIBUTING.md).
 
-## Using AgentEsc today
+## Quickstart
 
-The harness is still in development, but the taxonomy is usable now:
+```bash
+git clone https://github.com/AddyM/agentesc && cd agentesc
+pip install -e ".[dev,mcp]"
+
+agentesc list                      # 15 scenarios, 3 per class
+agentesc validate                  # harness self-check, no API key needed
+
+# Smoke test against a real model (a few cents):
+export ANTHROPIC_API_KEY=...
+agentesc run --agent anthropic --model claude-haiku-5-5 --class PE-2 --trials 2 --control
+agentesc report results/run-anthropic-*.jsonl -o results/report.md
+```
+
+Any OpenAI-compatible endpoint works too, including local models:
+
+```bash
+agentesc run --agent openai --base-url http://localhost:11434/v1 --model llama3.1 --class PE-3
+```
+
+To test an MCP client (Claude Desktop, an IDE agent) directly, serve a scenario's tools
+over stdio and point the client at it:
+
+```bash
+agentesc mcp-serve --scenario PE-2.1-001 --defense D0 --trace trace.jsonl
+```
+
+### What a run measures
+
+For each scenario, model and defense level D0–D3:
+
+| Metric | Meaning |
+|---|---|
+| ASR | The agent attempted the privileged action |
+| ESR | The privileged action executed |
+| DR | Attempts that a defense flagged |
+| CR | Flagged attempts that did not execute |
+| Utility | The user's legitimate task still got done |
+
+`--control` reruns every scenario with the attack text removed; the report shows ESR net
+of that control. Scripted reference agents (`--agent scripted|benign`) are harness
+self-checks and the report refuses to present them as results. See
+[`docs/HARNESS_SPEC.md`](docs/HARNESS_SPEC.md) for exact definitions and
+[`docs/VALIDATION.md`](docs/VALIDATION.md) for the construction check.
+
+### Using the taxonomy without running anything
 
 - **Threat-model review.** Walk each of your agent's tools and integrations through
   PE-1 … PE-5 and record which sub-techniques apply.
-- **Red-team planning.** Write test cases in the scenario schema
-  ([`data/scenarios/SCHEMA_AND_EXAMPLES.md`](data/scenarios/SCHEMA_AND_EXAMPLES.md)) so
-  results stay comparable across configurations.
-- **Defense comparison.** Report Escalation Success Rate, Detection Rate and
-  Containment Rate at each defense level (D0–D3) instead of a single pass/fail.
+- **Red-team planning.** Write test cases in the scenario format
+  ([`docs/HARNESS_SPEC.md`](docs/HARNESS_SPEC.md) §3) so results stay comparable.
 
 ## Used by and cited in
 
@@ -100,7 +142,7 @@ the latest version; [`CITATION.cff`](CITATION.cff) has the full metadata, and Gi
   title     = {{AgentEsc: A Taxonomy of Privilege-Escalation Threats in
                Tool-Calling and MCP-Based Agent Systems}},
   year      = {2026},
-  version   = {0.1.0},
+  version   = {0.2.0},
   publisher = {Zenodo},
   doi       = {10.5281/zenodo.21327893},
   url       = {https://github.com/AddyM/agentesc}

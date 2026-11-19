@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "agentesc"
+version = "0.2.0"
+description = "Benchmark harness for privilege-escalation threats in tool-calling, MCP and multi-agent LLM systems"
+readme = "README.md"
+license = "Apache-2.0"
+authors = [{ name = "Aditya Mehra" }]
+requires-python = ">=3.10"
+dependencies = ["pydantic>=2.5", "pyyaml>=6"]
+keywords = ["llm-security", "ai-agents", "mcp", "privilege-escalation", "benchmark"]
+
+[project.optional-dependencies]
+mcp = ["mcp>=2,<3", "anyio>=4"]
+dev = ["pytest>=8"]
+
+[project.scripts]
+agentesc = "agentesc.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["agentesc*"]
+
